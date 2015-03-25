@@ -18,13 +18,14 @@ import javax.xml.bind.Marshaller;
  
 public class JAXBConvert {
     
-	public String MessageStanza(String To, String From, String Body) {
+	public String MessageStanza(String To, String From, String Body, String Id) {
  
 	  Message message = new Message();
 	  message.setTo(To);
 	  message.setFrom(From);
 	  message.setLang("English");
           message.setBody(Body);
+          message.setId(Id);
         
         java.io.StringWriter sw= new StringWriter();
  
@@ -46,6 +47,7 @@ public class JAXBConvert {
  
 	      } 
           catch (JAXBException e) {
+              System.out.println("Exception has been caused. Please check JAXBConvert Class.");
 		e.printStackTrace();
                     }
           return sw.toString();

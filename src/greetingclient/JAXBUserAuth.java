@@ -48,6 +48,7 @@ public class JAXBUserAuth {
 	      } 
           catch (JAXBException e) {
 		e.printStackTrace();
+                System.out.println("Exception has been caused. Please check JAXBUserAuth Class.");
                     }
           return sw.toString();
         

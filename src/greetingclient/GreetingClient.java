@@ -4,14 +4,30 @@ import java.net.*;
 import java.io.*;
 import java.util.Scanner;
 
-public class GreetingClient
+public class GreetingClient implements Runnable
 {
-   public static void main(String [] args)
+   private String Action="";
+   private String guname="";
+   private String gpass="";
+   public void GreetingClientAction(String action)
    {
+       Action=action;
+   }
+   public void GreetingClientAction(String action, String username, String password)
+   {
+       System.out.println("In GreetingClientAction");
+       Action=action;
+       guname=username;
+       gpass=password;
+       System.out.println(Action+guname+gpass);
+   }
+   public void run()
+   {
+      
       String serverName = "localhost";
-	   String ServerSays,Id;
-      String username="shankar";
-      String password="redhat";
+	   String ServerSays;
+           String Id="";
+      
       JAXBConvert jaxb=new JAXBConvert();
       JAXBUserAuth jaxbuserauth= new JAXBUserAuth();
       int port = 5000;
@@ -30,25 +46,51 @@ public class GreetingClient
                                                 System.out.println("Trying to authenticate");
                                                 //ToBeSent=jaxb.MessageStanza("dmvs000@gmail.com", "vivek@gmail.com", "Sony Vaio");
                                                 //ToBeSent=jaxbuserauth.UserAuthStanza(username, password, "shankar@B5Charlar.com", "B5Charlar.com");
-                                                out.writeUTF("authenticate");
+                                                //out.writeUTF("authenticate");
                                                 ServerSays=in.readUTF();
                                                 if(ServerSays.equals("Credentials - 063"))
                                                 {
                                                     Id=in.readUTF();
-                                                    ToBeSent=jaxbuserauth.UserAuthStanza(username, password, "shankar@B5Charlar.com", "B5Charlar.com", Id);
+                                                    ToBeSent=jaxbuserauth.UserAuthStanza(guname, gpass, "shankar@B5Charlar.com", "B5Charlar.com", Id);
                                                     out.writeUTF(ToBeSent);
+                                                    System.out.println("User Credentials Sent. Waiting for the server to respond");
+                                                }
+                                                if(ServerSays.equals("AuthSuccess"))
+                                                {
+                                                    System.out.println("UserName and Password are Valid.");
+                                                    clientSocket.close();
+                                                }
+                                                if(ServerSays.equals("FA"))
+                                                {
+                                                    System.out.println("Username and Password are Not Valid");
+                                                    out.writeUTF("terminate");
+                                                    clientSocket.close();
+                                                }
+                                                if(ServerSays.equals("MsgSend-Ack"))
+                                                {
+                                                    System.out.println("Message Sending Acknowledgement");
+                                                    ToBeSent=jaxb.MessageStanza("dmvs000@gmail.com", "vivek@gmail.com", "Sony Vaio", Id);
+                                                }
+                                                if(Action.equals("Login"))
+                                                {
+                                                    System.out.println("Trying to authenticate");
+                                                //ToBeSent=jaxb.MessageStanza("dmvs000@gmail.com", "vivek@gmail.com", "Sony Vaio");
+                                                //ToBeSent=jaxbuserauth.UserAuthStanza(username, password, "shankar@B5Charlar.com", "B5Charlar.com");
+                                                out.writeUTF("authenticate");
+                                                //ServerSays=in.readUTF();
+                                                Action="";
                                                 }
 						//Scanner inp = new Scanner(System.in);
 						//System.out.println("Enter a message");
 						//s = inp.nextLine();
                                                 //out.writeUTF(ToBeSent);
-                                                System.out.println("");
+                                                //System.out.println("");
                                                 //out.writeUTF("Message from " + client.getLocalSocketAddress() + s);
 						
 						//System.out.println("Server says " + in.readUTF());
                                                 
-                                                System.out.println(ServerSays);
-                                                clientSocket.close();
+                                                //System.out.println(ServerSays);
+                                                //clientSocket.close();
                                             }
       }catch(IOException e)
       {
