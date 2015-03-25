@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,9 @@ import javax.swing.event.ListSelectionListener;
  */
 public class sampleinterface extends javax.swing.JFrame {
     public String un,p;
+    public Socket ourSocket;
     public static GreetingClient gC=new GreetingClient();
+    Authenticate au;
 
     public String[] friendslist=new String[100];
 public int i;
@@ -1048,10 +1051,15 @@ pass.setText("");
         char[] pas=pass.getPassword();
         p=new String(pas);
         p.trim();
+        boolean valid=false;
+        ourSocket=gC.getMySocket();
+        au=new Authenticate();
+        valid=au.AuthenticateCredentials(un, p, ourSocket);
         System.out.println("Calling GreetingClientAction");
         gC.GreetingClientAction("Login", un, p);
-        /*
-        if(un.equals(un1) && p.equals(pas1)){
+        
+        
+        if(valid){
 //removing panel
 jPanel1.removeAll();
 jPanel1.repaint();
@@ -1071,7 +1079,7 @@ jPanel1.revalidate();
    jPanel5.revalidate();
   
 
-}*/
+}
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1413,8 +1421,9 @@ jPanel1.revalidate();
         //</editor-fold>
 
         //This is the network thread
+        new Thread(gC).start();
         
-	new Thread(gC).start();
+	
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

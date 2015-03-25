@@ -9,6 +9,7 @@ public class GreetingClient implements Runnable
    private String Action="";
    private String guname="";
    private String gpass="";
+   private Socket socketJustCreated;
    public void GreetingClientAction(String action)
    {
        Action=action;
@@ -20,6 +21,10 @@ public class GreetingClient implements Runnable
        guname=username;
        gpass=password;
        System.out.println(Action+guname+gpass);
+   }
+   public Socket getMySocket()
+   {
+       return socketJustCreated;
    }
    public void run()
    {
@@ -37,16 +42,25 @@ public class GreetingClient implements Runnable
          System.out.println("Connecting to... " + serverName + " on port... " + port);
          Socket clientSocket = new Socket(serverName, port);
          System.out.println("Just connected to " + clientSocket.getRemoteSocketAddress() + "on port :" + clientSocket.getPort() );
-					  while(true)
-					    {
-						OutputStream outToServer = clientSocket.getOutputStream();
-						DataOutputStream out = new DataOutputStream(outToServer);
-                                                InputStream inFromServer = clientSocket.getInputStream();
-						DataInputStream in = new DataInputStream(inFromServer);
-                                                System.out.println("Trying to authenticate");
+         System.out.println("Don't terminate this thread. Thread with high priority");
+         System.out.println("Storing the Sockets.");
+         socketJustCreated=clientSocket;
+					//  while(true)
+					//    {
+					//	OutputStream outToServer = clientSocket.getOutputStream();
+					//	DataOutputStream out = new DataOutputStream(outToServer);
+                                        //       InputStream inFromServer = clientSocket.getInputStream();
+					//	DataInputStream in = new DataInputStream(inFromServer);
+                                                //System.out.println("Trying to authenticate");
+                                               /* if(Action.equals("Login"))
+                                                {
+                                                    System.out.println("Trying to authenticate");
                                                 //ToBeSent=jaxb.MessageStanza("dmvs000@gmail.com", "vivek@gmail.com", "Sony Vaio");
                                                 //ToBeSent=jaxbuserauth.UserAuthStanza(username, password, "shankar@B5Charlar.com", "B5Charlar.com");
-                                                //out.writeUTF("authenticate");
+                                                out.writeUTF("authenticate");
+                                                //ServerSays=in.readUTF();
+                                                Action="";
+                                                }
                                                 ServerSays=in.readUTF();
                                                 if(ServerSays.equals("Credentials - 063"))
                                                 {
@@ -80,6 +94,7 @@ public class GreetingClient implements Runnable
                                                 //ServerSays=in.readUTF();
                                                 Action="";
                                                 }
+                                                System.out.println(Action);
 						//Scanner inp = new Scanner(System.in);
 						//System.out.println("Enter a message");
 						//s = inp.nextLine();
@@ -90,8 +105,8 @@ public class GreetingClient implements Runnable
 						//System.out.println("Server says " + in.readUTF());
                                                 
                                                 //System.out.println(ServerSays);
-                                                //clientSocket.close();
-                                            }
+                                                //clientSocket.close();*/
+                                           // }
       }catch(IOException e)
       {
          System.out.println("Exception has been caused. Please check GreetingClient Class.");
