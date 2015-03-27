@@ -33,6 +33,11 @@ import javax.swing.event.ListSelectionListener;
  */
 public class sampleinterface extends javax.swing.JFrame {
     public String un,p;
+    private String FullName;
+    private String LastName;
+    private String Email;
+    private String Password;
+    private String ConfirmPassword;
     public Socket ourSocket;
     public static GreetingClient gC=new GreetingClient();
     Authenticate au;
@@ -135,6 +140,8 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
         jComboBox1 = new javax.swing.JComboBox();
         jComboBox2 = new javax.swing.JComboBox();
         jTextField8 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         appname1 = new javax.swing.JPanel();
@@ -300,7 +307,7 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
 
         jLabel10.setText("E-mail :");
 
-        jLabel11.setText("Confirm E-mail :");
+        jLabel11.setText("Password");
 
         jButton4.setText("Submit");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -317,16 +324,55 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
         });
 
         jTextField3.setText(" ");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jTextField4.setText(" ");
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
 
         jTextField5.setText(" ");
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jTextField8.setText("year");
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField8ActionPerformed(evt);
+            }
+        });
+
+        jTextField9.setText(" ");
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("Re-Enter");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -352,7 +398,8 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
                                         .addComponent(jLabel8)
                                         .addComponent(jLabel10)
                                         .addComponent(jLabel11)
-                                        .addComponent(jLabel7))
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel22))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jTextField2)
@@ -360,7 +407,8 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
                                         .addComponent(jTextField5)
                                         .addGroup(jPanel6Layout.createSequentialGroup()
                                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, Short.MAX_VALUE)))))))
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jTextField9))))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(86, 86, 86)
                         .addComponent(jButton4)))
@@ -392,8 +440,12 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(18, 18, 18)
                 .addComponent(jButton4)
                 .addGap(38, 38, 38))
         );
@@ -1055,8 +1107,8 @@ pass.setText("");
         ourSocket=gC.getMySocket();
         au=new Authenticate();
         valid=au.AuthenticateCredentials(un, p, ourSocket);
-        System.out.println("Calling GreetingClientAction");
-        gC.GreetingClientAction("Login", un, p);
+        //System.out.println("Calling GreetingClientAction");
+        //gC.GreetingClientAction("Login", un, p);
         
         
         if(valid){
@@ -1074,7 +1126,7 @@ jPanel1.revalidate();
 
 
    
-   unamedisplay.setText(uname.getText());
+   unamedisplay.setText("Hi,"+uname.getText());
    jPanel5.repaint();
    jPanel5.revalidate();
   
@@ -1090,6 +1142,24 @@ jPanel1.revalidate();
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        //Registration Code Goes Here.
+        FullName=jTextField2.getText().trim();
+        LastName=jTextField3.getText().trim();
+        Email=jTextField4.getText().trim();
+        Password=jTextField9.getText().trim();
+        ConfirmPassword=jTextField5.getText().trim();
+        JAXBUserRegister juru=new JAXBUserRegister();
+        ourSocket=gC.getMySocket();
+        Register reg=new Register();
+        
+        if(ConfirmPassword.equals(Password))
+        {
+            System.out.println("Sign Up Clicked");
+            reg.RegisterDetails(FullName,LastName,"DOB",Email,Password, ourSocket);
+            reg.RegisterMe();
+        }
+        
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -1285,6 +1355,7 @@ jPanel1.revalidate();
     private void addfriendbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addfriendbuttonActionPerformed
         // TODO add your handling code here:
                                     //removing panel
+        //This is for adding new friends. 
 jPanel1.removeAll();
 jPanel1.repaint();
 jPanel1.revalidate();
@@ -1396,6 +1467,34 @@ jPanel1.revalidate();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField9ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1476,6 +1575,7 @@ jPanel1.revalidate();
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1514,6 +1614,7 @@ jPanel1.revalidate();
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextPane jTextPane2;
     private javax.swing.JButton msgsend;
     private javax.swing.JButton newgrpchat;

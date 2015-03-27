@@ -106,7 +106,8 @@ public class GreetingClient implements Runnable
                                                 
                                                 //System.out.println(ServerSays);
                                                 //clientSocket.close();*/
-                                           // }
+                                           // 
+         System.out.println("Socket Created and withheld. Greeting Client Closed");
       }catch(IOException e)
       {
          System.out.println("Exception has been caused. Please check GreetingClient Class.");

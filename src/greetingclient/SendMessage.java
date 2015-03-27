@@ -15,17 +15,28 @@ import java.net.Socket;
  *
  * @author SHANKAR
  */
-public class Authenticate {
+public class SendMessage {
     private Socket socket;
     JAXBConvert jaxb;
     JAXBUserAuth jaxbuserauth;
-    public void Authenticate(Socket sc)
+    private String username;
+    private String sessionId;
+    private String to;
+    private String from;
+    private String lang;
+    private String message;
+    public void SendMessageDetails(Socket sc, String username, String to, String from, String lang)
     {
         jaxb=new JAXBConvert();
         jaxbuserauth= new JAXBUserAuth();
         socket=sc;
+        this.username=username;
+        this.from=from;
+        this.to=to;
+        this.lang=lang;
+        
     }
-    public boolean AuthenticateCredentials(String username,String password, Socket sc)
+    public boolean SendMessage(String Message)
             {
                 //System.out.println("Trying to authenticate");
                 String ServerSays;
@@ -33,20 +44,19 @@ public class Authenticate {
                 String ToBeSent;
                 jaxb=new JAXBConvert();
                 jaxbuserauth= new JAXBUserAuth();
-                socket=sc;
                 try
                 {
                     OutputStream outToServer = socket.getOutputStream();
                     DataOutputStream out = new DataOutputStream(outToServer);
                     InputStream inFromServer = socket.getInputStream();
                     DataInputStream in = new DataInputStream(inFromServer);
-                    System.out.println("Trying to authenticate");
-                    out.writeUTF("authenticate");
+                    System.out.println("Trying to Send Message");
+                    out.writeUTF("OutMessage");
                     ServerSays=in.readUTF();
-                    if(ServerSays.equals("Credentials - 063"))
+                    if(ServerSays.equals("MsgSend-Ack"))
                                                 {
-                                                    Id=in.readUTF();
-                                                    ToBeSent=jaxbuserauth.UserAuthStanza(username, password, "shankar@B5Charlar.com/PC", "B5Charlar.com", Id);
+                                                    //Id=in.readUTF();
+                                                    ToBeSent=jaxb.MessageStanza(to, from, message, sessionId);
                                                     out.writeUTF(ToBeSent);
                                                     System.out.println("User Credentials Sent. Waiting for the server to respond");
                                                 }
@@ -61,11 +71,9 @@ public class Authenticate {
                                                     out.writeUTF("terminate");
                                                     return false;
                                                 }
-                    System.out.println("Authenticat Closed");
                 }
                 catch(Exception e)
                 {
-                    System.out.println("Exception has been caught at Authenticate.java Class, Client Side");
                     System.out.println(e);
                 }
                 
