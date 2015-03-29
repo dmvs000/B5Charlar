@@ -42,16 +42,28 @@ public class GreetingClient implements Runnable
          System.out.println("Connecting to... " + serverName + " on port... " + port);
          Socket clientSocket = new Socket(serverName, port);
          System.out.println("Just connected to " + clientSocket.getRemoteSocketAddress() + "on port :" + clientSocket.getPort() );
-         System.out.println("Don't terminate this thread. Thread with high priority");
+         //System.out.println("Don't terminate this thread. Thread with high priority");
          System.out.println("Storing the Sockets.");
          socketJustCreated=clientSocket;
-					//  while(true)
-					//    {
-					//	OutputStream outToServer = clientSocket.getOutputStream();
-					//	DataOutputStream out = new DataOutputStream(outToServer);
-                                        //       InputStream inFromServer = clientSocket.getInputStream();
-					//	DataInputStream in = new DataInputStream(inFromServer);
-                                                //System.out.println("Trying to authenticate");
+         System.out.println("Socket Created and withheld. Greeting Client running on loop for server Requests");
+					 /* while(true)
+					    {
+						OutputStream outToServer = clientSocket.getOutputStream();
+						DataOutputStream out = new DataOutputStream(outToServer);
+                                               InputStream inFromServer = clientSocket.getInputStream();
+						DataInputStream in = new DataInputStream(inFromServer);
+                                                String Msg;
+                                              //System.out.println("Trying to authenticate");
+                                                String ServerSaysNow=in.readUTF();
+                                                if(ServerSaysNow.equals("ReceiveMsg"))
+                                                {
+                                                    System.out.println("Got a message from server");
+                                                    out.writeUTF("ReceiveMsg-Ack");
+                                                    Msg=in.readUTF();
+                                                    JAXBUnmarshall ju=new JAXBUnmarshall();
+                                                    ju.UnMarshall(Msg);
+                                                    System.out.println(ju.getBody());
+                                                }
                                                /* if(Action.equals("Login"))
                                                 {
                                                     System.out.println("Trying to authenticate");
@@ -106,8 +118,10 @@ public class GreetingClient implements Runnable
                                                 
                                                 //System.out.println(ServerSays);
                                                 //clientSocket.close();*/
-                                           // 
-         System.out.println("Socket Created and withheld. Greeting Client Closed");
+                                           //
+                                            
+         
+     // } 
       }catch(IOException e)
       {
          System.out.println("Exception has been caused. Please check GreetingClient Class.");

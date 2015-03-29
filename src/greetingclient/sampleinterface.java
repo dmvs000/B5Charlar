@@ -41,6 +41,7 @@ public class sampleinterface extends javax.swing.JFrame {
     public Socket ourSocket;
     public static GreetingClient gC=new GreetingClient();
     Authenticate au;
+    private String ConversingWith="";
 
     public String[] friendslist=new String[100];
 public int i;
@@ -63,7 +64,7 @@ while((str = br.readLine()) != null){
 model.addElement(str);
 }
 jList1.setModel(model);
-
+//List SelectionListener;
 jTextArea3.setEditable(false);
          jList1.addListSelectionListener(new ListSelectionListener() {
     @Override
@@ -84,6 +85,7 @@ jTextArea3.setEditable(false);
            v[x++]=c[j];
            }}
            String s=new String(v);
+           ConversingWith=s;
            jTextArea1.setText("Hi "+s);
            jTextArea3.setText("");
          
@@ -1342,6 +1344,7 @@ jPanel1.revalidate();
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
                             //removing panel
+        
 jPanel1.removeAll();
 jPanel1.repaint();
 jPanel1.revalidate();
@@ -1451,6 +1454,11 @@ jPanel1.revalidate();
     private void msgsendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msgsendActionPerformed
         // TODO add your handling code here:
         String str2=jTextArea1.getText();
+        SendMessage sm=new SendMessage();
+        sm.SendMessageDetails(ourSocket, "shankar", ConversingWith, un, "English");
+        sm.SendMessage(str2);
+        System.out.println("Message Successfull Sent");
+        
         if("".equals(str2)){
 } else {
             jTextArea3.append("\n"+"me:  "+str2+"\t"+time());

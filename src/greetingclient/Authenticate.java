@@ -21,8 +21,6 @@ public class Authenticate {
     JAXBUserAuth jaxbuserauth;
     public void Authenticate(Socket sc)
     {
-        jaxb=new JAXBConvert();
-        jaxbuserauth= new JAXBUserAuth();
         socket=sc;
     }
     public boolean AuthenticateCredentials(String username,String password, Socket sc)
@@ -42,6 +40,8 @@ public class Authenticate {
                     DataInputStream in = new DataInputStream(inFromServer);
                     System.out.println("Trying to authenticate");
                     out.writeUTF("authenticate");
+                    while(true)
+                    {
                     ServerSays=in.readUTF();
                     if(ServerSays.equals("Credentials - 063"))
                                                 {
@@ -61,7 +61,8 @@ public class Authenticate {
                                                     out.writeUTF("terminate");
                                                     return false;
                                                 }
-                    System.out.println("Authenticat Closed");
+                    System.out.println("Authenticate Closed");
+                }
                 }
                 catch(Exception e)
                 {

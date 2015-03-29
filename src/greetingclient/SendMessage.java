@@ -58,7 +58,8 @@ public class SendMessage {
                                                     //Id=in.readUTF();
                                                     ToBeSent=jaxb.MessageStanza(to, from, message, sessionId);
                                                     out.writeUTF(ToBeSent);
-                                                    System.out.println("User Credentials Sent. Waiting for the server to respond");
+                                                    System.out.println(ToBeSent);
+                                                    System.out.println("Message Sent. Waiting for the server to respond");
                                                 }
                     if(ServerSays.equals("AuthSuccess"))
                                                 {
