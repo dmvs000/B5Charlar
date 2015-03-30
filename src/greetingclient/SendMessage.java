@@ -15,7 +15,7 @@ import java.net.Socket;
  *
  * @author SHANKAR
  */
-public class SendMessage {
+public class SendMessage{
     private Socket socket;
     JAXBConvert jaxb;
     JAXBUserAuth jaxbuserauth;
@@ -25,7 +25,7 @@ public class SendMessage {
     private String from;
     private String lang;
     private String message;
-    public void SendMessageDetails(Socket sc, String username, String to, String from, String lang)
+    public void SendMessageDetails(Socket sc, String username, String to, String from, String lang,String Message)
     {
         jaxb=new JAXBConvert();
         jaxbuserauth= new JAXBUserAuth();
@@ -34,14 +34,16 @@ public class SendMessage {
         this.from=from;
         this.to=to;
         this.lang=lang;
+        this.message=Message;
         
     }
-    public boolean SendMessage(String Message)
+    public void SendMessageNow()
             {
                 //System.out.println("Trying to authenticate");
                 String ServerSays;
                 String Id;
                 String ToBeSent;
+                
                 jaxb=new JAXBConvert();
                 jaxbuserauth= new JAXBUserAuth();
                 try
@@ -52,32 +54,42 @@ public class SendMessage {
                     DataInputStream in = new DataInputStream(inFromServer);
                     System.out.println("Trying to Send Message");
                     out.writeUTF("OutMessage");
+                    ToBeSent=jaxb.MessageStanza(to, from, message, sessionId);
+                    System.out.println("Message marshalling Successful");
+                    out.writeUTF(ToBeSent);
+                    System.out.println("Message Sent");
+                    /*System.out.println("OutMessage sent");
                     ServerSays=in.readUTF();
+                    System.out.println("in.readUTF() : "+ServerSays);
+                    while(true){
                     if(ServerSays.equals("MsgSend-Ack"))
                                                 {
                                                     //Id=in.readUTF();
                                                     ToBeSent=jaxb.MessageStanza(to, from, message, sessionId);
+                                                    System.out.println("Message marshalling Successful");
                                                     out.writeUTF(ToBeSent);
                                                     System.out.println(ToBeSent);
                                                     System.out.println("Message Sent. Waiting for the server to respond");
+                                                    break;
                                                 }
                     if(ServerSays.equals("AuthSuccess"))
                                                 {
                                                     System.out.println("UserName and Password are Valid.");
-                                                    return true;
+                                                    //return true;
                                                 }
                     if(ServerSays.equals("FA"))
                                                 {
                                                     System.out.println("Username and Password are Not Valid");
                                                     out.writeUTF("terminate");
-                                                    return false;
+                                                    //return false;
                                                 }
-                }
+                    }*/
+            }
                 catch(Exception e)
                 {
                     System.out.println(e);
                 }
-                
-                return false;
+                System.out.println("SendMessage Closed");
+                //return false;
             }
 }

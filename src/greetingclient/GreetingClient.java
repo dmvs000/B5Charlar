@@ -127,5 +127,6 @@ public class GreetingClient implements Runnable
          System.out.println("Exception has been caused. Please check GreetingClient Class.");
          e.printStackTrace();
       }
+      System.out.println("Greeting client is closed");
    }
 }

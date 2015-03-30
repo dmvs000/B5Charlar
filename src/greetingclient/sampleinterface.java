@@ -42,9 +42,10 @@ public class sampleinterface extends javax.swing.JFrame {
     public static GreetingClient gC=new GreetingClient();
     Authenticate au;
     private String ConversingWith="";
-
+    ReceiveInboundMessages rim=new ReceiveInboundMessages();
+    Thread t1,t2;
     public String[] friendslist=new String[100];
-public int i;
+    public int i;
 private DefaultListModel model;
     /**
      * Creates new form sampleinterface
@@ -60,9 +61,11 @@ private DefaultListModel model;
 BufferedReader br = new BufferedReader(fr); 
 String str; 
 model=new DefaultListModel();
-while((str = br.readLine()) != null){
-model.addElement(str);
-}
+//while((str = br.readLine()) != null){
+model.addElement("abc");
+model.addElement("shankar");
+model.addElement("q");
+//}
 jList1.setModel(model);
 //List SelectionListener;
 jTextArea3.setEditable(false);
@@ -1131,8 +1134,13 @@ jPanel1.revalidate();
    unamedisplay.setText("Hi,"+uname.getText());
    jPanel5.repaint();
    jPanel5.revalidate();
+ 
+  System.out.println("Starting the Inbound Messages Receiving Thread");
+  t1=new Thread(rim);
+  rim.ReceiveInboundMessagesSocket(ourSocket);
+  System.out.println("Socket passwd to RIM");
+  t1.start();
   
-
 }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1453,10 +1461,14 @@ jPanel1.revalidate();
 
     private void msgsendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msgsendActionPerformed
         // TODO add your handling code here:
+       t1.interrupt();
         String str2=jTextArea1.getText();
         SendMessage sm=new SendMessage();
-        sm.SendMessageDetails(ourSocket, "shankar", ConversingWith, un, "English");
-        sm.SendMessage(str2);
+        
+        sm.SendMessageDetails(ourSocket, un, ConversingWith, un, "English",str2);
+        sm.SendMessageNow();
+        //sm.SendMessageNow(str2);
+        //new Thread(sm).start();
         System.out.println("Message Successfull Sent");
         
         if("".equals(str2)){
