@@ -66,7 +66,7 @@ public class Register {
                     if(ServerSays.equals("RegFailed"))
                                                 {
                                                     System.out.println("Registration Failed");
-                                                    out.writeUTF("terminate");
+                                                    //out.writeUTF("terminate");
                                                     //return false;
                                                 }
                     System.out.println("Register Closed");

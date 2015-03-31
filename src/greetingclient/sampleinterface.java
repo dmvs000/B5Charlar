@@ -1093,6 +1093,9 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 //removing panel
+        System.out.println("User clicked LogOFF");
+        LogOut lo=new LogOut();
+        lo.logoff(ourSocket);
 jPanel1.removeAll();
 jPanel1.repaint();
 jPanel1.revalidate();
@@ -1198,6 +1201,9 @@ jPanel1.revalidate();
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
         //removing panel
+        System.out.println("User clicked LogOFF");
+        LogOut lo=new LogOut();
+        lo.logoff(ourSocket);
 jPanel1.removeAll();
 jPanel1.repaint();
 jPanel1.revalidate();
