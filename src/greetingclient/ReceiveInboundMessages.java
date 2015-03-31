@@ -5,6 +5,7 @@
  */
 package greetingclient;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
@@ -19,8 +20,10 @@ public class ReceiveInboundMessages implements Runnable
 {
     private String Message;
     private Socket socket;
-    public void ReceiveInboundMessagesSocket(Socket sc)
+    private sampleinterface si;
+    public void ReceiveInboundMessagesSocket(Socket sc,sampleinterface si)
     {
+        this.si=si;
         socket=sc;
         System.out.println("Listening Socket Successfulyy Received RIM");
     }
@@ -35,6 +38,8 @@ public class ReceiveInboundMessages implements Runnable
             DataOutputStream out = new DataOutputStream(outMsg);
             InputStream inFrom = socket.getInputStream();
             DataInputStream in = new DataInputStream(inFrom);
+            String Body,From;
+            JAXBUnmarshall jum=new JAXBUnmarshall();
             while(true)
             {
                 System.out.println("Inside RIM");
@@ -44,9 +49,13 @@ public class ReceiveInboundMessages implements Runnable
                 {
                     ServerSays=in.readUTF();
                     System.out.println("Received Msg : "+ServerSays);
-                    JAXBUnmarshall jum=new JAXBUnmarshall();
-                    String Body=jum.getBody();
-                    String From=jum.getFrom();
+                    jum.UnMarshall(ServerSays);
+                    Body=jum.getBody();
+                    From=jum.getFrom();
+                    System.out.println("Body is :"+Body);
+                    System.out.println("From is :"+From);
+                    si.popitup(Body, From);
+                    System.out.println("Message Shown Successfully");
                 }
             }
             

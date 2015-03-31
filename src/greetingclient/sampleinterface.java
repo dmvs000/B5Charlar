@@ -51,6 +51,11 @@ private DefaultListModel model;
      * Creates new form sampleinterface
      * @throws java.io.FileNotFoundException
      */
+public void popitup(String Body, String From)
+{
+    System.out.println("pop it up called");
+    jTextArea3.append("\n"+From+":  "+Body+"\t"+time());
+}
     public sampleinterface() throws FileNotFoundException, IOException {
         initComponents();
         model=new DefaultListModel();
@@ -1137,10 +1142,11 @@ jPanel1.revalidate();
  
   System.out.println("Starting the Inbound Messages Receiving Thread");
   t1=new Thread(rim);
-  rim.ReceiveInboundMessagesSocket(ourSocket);
+  rim.ReceiveInboundMessagesSocket(ourSocket,this);
   System.out.println("Socket passwd to RIM");
   t1.start();
-  
+  RequestRoster rr=new RequestRoster();
+  rr.getRoster(un,ourSocket);
 }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1461,13 +1467,13 @@ jPanel1.revalidate();
 
     private void msgsendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msgsendActionPerformed
         // TODO add your handling code here:
-       t1.interrupt();
+       //t1.interrupt();
         String str2=jTextArea1.getText();
         SendMessage sm=new SendMessage();
-        
+        System.out.println("ConversingWith : " +ConversingWith);
         sm.SendMessageDetails(ourSocket, un, ConversingWith, un, "English",str2);
         sm.SendMessageNow();
-        //sm.SendMessageNow(str2);
+        //sm.SendMessageNowj(str2);
         //new Thread(sm).start();
         System.out.println("Message Successfull Sent");
         

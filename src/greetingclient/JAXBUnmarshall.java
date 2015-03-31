@@ -15,6 +15,7 @@ public class JAXBUnmarshall {
             
  
 	 try {
+             System.out.println("Unmarshalling the new message Received");
  
 		//File file = new File("C:\\Users\\SHANKAR\\Desktop\\Test\\xml.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
@@ -47,10 +48,10 @@ public class JAXBUnmarshall {
         }
         public String getFrom()
         {
-                return To;
+                return From;
         }
         public String getBody()
         {
-                return To;
+                return Body;
         }
 }
