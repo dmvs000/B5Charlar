@@ -64,7 +64,7 @@ jPanel1.repaint();
 jPanel1.revalidate();
 
 //adding panel
-jPanel1.add(jPanel5);
+jPanel1.add(jPanel2);
 jPanel1.repaint();
 jPanel1.revalidate();
 
