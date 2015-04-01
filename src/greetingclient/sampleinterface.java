@@ -58,6 +58,17 @@ public void popitup(String Body, String From)
 }
     public sampleinterface() throws FileNotFoundException, IOException {
         initComponents();
+        //removing panel
+jPanel1.removeAll();
+jPanel1.repaint();
+jPanel1.revalidate();
+
+//adding panel
+jPanel1.add(jPanel5);
+jPanel1.repaint();
+jPanel1.revalidate();
+
+        
         model=new DefaultListModel();
         for(i=0;i<100;i++){
         friendslist[i]="";
@@ -135,6 +146,7 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
         jLabel6 = new javax.swing.JLabel();
         uname = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
+        jLabel23 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -264,6 +276,9 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
             }
         });
 
+        jLabel23.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout signinLayout = new javax.swing.GroupLayout(signin);
         signin.setLayout(signinLayout);
         signinLayout.setHorizontalGroup(
@@ -283,6 +298,10 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
                     .addComponent(uname, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                     .addComponent(pass))
                 .addContainerGap())
+            .addGroup(signinLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         signinLayout.setVerticalGroup(
             signinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +318,9 @@ setLocation(width/2 - getWidth()/2, height/2- getHeight()/2);
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(57, 57, 57))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 255));
@@ -1151,6 +1172,12 @@ jPanel1.revalidate();
   RequestRoster rr=new RequestRoster();
   rr.getRoster(un,ourSocket);
 }
+        else
+        {
+        jLabel23.setText("* Username or Password is entered wrong");
+        }
+uname.setText("");
+pass.setText("");
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1608,6 +1635,7 @@ jPanel1.revalidate();
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
